@@ -20,19 +20,19 @@ This Module is Licensed Under A Modified Version of the [CC-BY-NC-SA 4.0](http:/
 NPM:
 
 ```bash
-npm i https://github.com/ASPNyan/discord-handlers@release
+npm i https://github.com/ASPNyan/discord-handlers
 ```
 
 Yarn:
 
 ```bash
-yarn add https://github.com/ASPNyan/discord-handlers@release
+yarn add https://github.com/ASPNyan/discord-handlers
 ```
 
 PNPM:
 
 ```bash
-pnpm add https://github.com/ASPNyan/discord-handlers@release
+pnpm add https://github.com/ASPNyan/discord-handlers
 ```
 
 ---
