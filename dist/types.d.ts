@@ -263,7 +263,7 @@ export class ConstructorOptions {
   EventCollection: Collection<string, (...args: any[]) => any>;
 }
 
-export declare class CMDManager extends EventEmitter {
+declare export default class CMDManager extends EventEmitter {
   private _Client: Client<boolean>;
   private _DeveloperServerID: string | null | undefined;
   private _TypeScript: boolean;

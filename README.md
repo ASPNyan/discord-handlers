@@ -2,7 +2,7 @@
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a>
 
-This Module is Licensed Under A Modified Version of the [CC-BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/) License. A Copy of the License is Found [Here](https://github.com/ASPNyan/discord-handlers/blob/main/LICENSE.md), As Well As An Easier-to-Read Summary [here](https://github.com/ASPNyan/discord-handlers#License)
+This Module is Licensed Under the [CC-BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/) License. A Copy of the License is Found [Here](https://github.com/ASPNyan/discord-handlers/blob/main/LICENSE.md), As Well As An Easier-to-Read Summary [here](https://github.com/ASPNyan/discord-handlers#License)
 
 ---
 
@@ -20,19 +20,19 @@ This Module is Licensed Under A Modified Version of the [CC-BY-NC-SA 4.0](http:/
 NPM:
 
 ```bash
-npm i https://github.com/ASPNyan/discord-handlers@release
+npm i https://github.com/ASPNyan/discord-handlers
 ```
 
 Yarn:
 
 ```bash
-yarn add https://github.com/ASPNyan/discord-handlers@release
+yarn add https://github.com/ASPNyan/discord-handlers
 ```
 
 PNPM:
 
 ```bash
-pnpm add https://github.com/ASPNyan/discord-handlers@release
+pnpm add https://github.com/ASPNyan/discord-handlers
 ```
 
 ---

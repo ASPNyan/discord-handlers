@@ -5,6 +5,9 @@
   "module": "./dist/exports.mjs",
   "types": "./dist/types.d.ts",
   "main": "./dist/exports.cjs",
+  "scripts": {
+    "build": "tsc --build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ASPNyan/discord-handlers.git"
@@ -27,5 +30,8 @@
   "optionalDependencies": {
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
