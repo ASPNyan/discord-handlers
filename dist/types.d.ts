@@ -1,6 +1,9 @@
 // prettier-ignore
 import { Client, ClientEvents, LocaleString, RestEvents, ApplicationCommandOptionType, Interaction, CacheType, Guild, ChannelType, CommandInteraction, Collection } from "discord.js";
 import { EventEmitter } from "events";
+// prettier-ignore
+import { StringOptionType, NumericalOptionType, ChannelOptionType, SubcommandOptionType, SubcommandGroupOptionType } from  './exports'
+
 export class EventInterface {
   /**
    * The Type of the Event
@@ -18,7 +21,7 @@ export class EventInterface {
    * What Should be Executed At Event Occurance
    * @param { any } arg - The Event's Argument
    */
-  execute(arg: any): {};
+  execute: (arg: any) => {};
 }
 
 export interface localizer {
@@ -84,7 +87,7 @@ export interface ChannelCommandOptionStructure
    * A Modified Version of the Base Type Parameter
    * Allows Only The Channel (ApplicationCommandOptionType.Channel) Type
    */
-  type: Extract<ApplicationCommandOptionType, "Channel">;
+  type: typeof ChannelOptionType;
 }
 
 export interface NumericalCommandOptionStructure
@@ -103,7 +106,7 @@ export interface NumericalCommandOptionStructure
    * A Modified Version of the Base Type Parameter
    * Allows Either an Integer (ApplicationCommandOptionType.Integer) Type or a Number (ApplicationCommandOptionType.Number) Type
    */
-  type: Extract<ApplicationCommandOptionType, "Number" | "Integer">;
+  type: typeof NumericalOptionType;
   /**
    * The Only Choices Allowed by the Command
    * Does not allow the User to Execute the Command unless one of the Choices is Selected
@@ -132,7 +135,7 @@ export interface StringCommandOptionStructure
    * A Modified Version of the Base Type Parameter
    * Allows Only the String (ApplicationCommandOptionType.String) Type
    */
-  type: Extract<ApplicationCommandOptionType, "String">;
+  type: typeof StringOptionType;
   /**
    * The Only Choices Allowed by the Command
    * Does not allow the User to Execute the Command unless one of the Choices is Selected
@@ -184,7 +187,7 @@ export interface SubcommandOptionStructure
    * A Modified Version of the Base Type Parameter
    * Allows Only a Subcommand (ApplicationCommandOptionType.Subcommand) Type
    */
-  type: Extract<ApplicationCommandOptionType, "Subcommand">;
+  type: typeof SubcommandOptionType;
   /**
    * Another Set of Command Options
    */
@@ -197,14 +200,14 @@ export interface SubcommandGroupOptionStructure
    * A Modified Version of the Base Type Parameter
    * Allows Only a SubcommandGroup (ApplicationCommandOptionType.SubcommandGroup) Type
    */
-  type: Extract<ApplicationCommandOptionType, "SubcommandGroup">;
+  type: typeof SubcommandGroupOptionType;
   /**
    * The Subcommand(s) to be Added to the SubcommandGroup
    */
   subcommand: SubcommandOptionStructure[];
 }
 
-export class CommandInterface {
+declare class CommandInterface {
   /**
    * The Name of the Command, Shown in Discord
    */
@@ -281,15 +284,3 @@ export declare class CMDManager extends EventEmitter {
   public get CommandCollection(): Collection<string, CommandJSONExport>;
   public get EventCollection(): Collection<string, (...args: any[]) => any>;
 }
-
-export default {
-  CMDManager,
-};
-module.exports = {
-  CMDManager,
-  CommandInteraction,
-  CommandInterface,
-  CommandJSONExport,
-  EventInterface,
-  ConstructorOptions,
-};
