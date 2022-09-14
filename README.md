@@ -154,7 +154,7 @@ JavaScript:
 - CommonJS:
 
 ```javascript
-const { commands, executions } = require("./index");
+const { commands, executions } = require("../index");
 
 module.exports = {
   name: "interactionCreate",
@@ -164,7 +164,7 @@ module.exports = {
     if (interaction.isChatInputCommand()) {
       const command = commands.get(interaction.commandName);
       if (!command) return;
-      const execute = commandExecs.get(interaction.commandName);
+      const execute = executions.get(interaction.commandName);
       if (!execute || !execute.execute) return;
       execute.execute(interaction.client, interaction, interaction.guild);
     }
@@ -176,7 +176,7 @@ module.exports = {
 
 ```javascript
 import { EventInterface } from "discord-handlers";
-import { commands, executions } from "./index";
+import { commands, executions } from "../index";
 
 export default {
   name: "interactionCreate",
@@ -186,7 +186,7 @@ export default {
     if (interaction.isChatInputCommand()) {
       const command = commands.get(interaction.commandName);
       if (!command) return;
-      const execute = commandExecs.get(interaction.commandName);
+      const execute = executions.get(interaction.commandName);
       if (!execute || !execute.execute) return;
       execute.execute(interaction.client, interaction, interaction.guild);
     }
@@ -202,7 +202,7 @@ import {
   CommandJSONExport,
   CommandInterface,
 } from "discord-handlers";
-import { commands, executions } from "./index";
+import { commands, executions } from "../index";
 
 export default {
   name: "interactionCreate",
@@ -214,7 +214,7 @@ export default {
         interaction.commandName
       );
       if (!command) return;
-      const execute: CommandInterface | undefined = commandExecs.get(
+      const execute: CommandInterface | undefined = executions.get(
         interaction.commandName
       );
       if (!execute || !execute.execute) return;
