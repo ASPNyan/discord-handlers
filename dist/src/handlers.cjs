@@ -52,7 +52,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.EventInterface = exports.CommandInterface = void 0;
-var functions_1 = require("./functions");
+var functions_1 = require("./functions.cjs");
 var events_1 = require("events");
 var AsciiTable3 = require("ascii-table3").AsciiTable3;
 var CMDManager = /** @class */ (function (_super) {

@@ -5,6 +5,7 @@
   "module": "./dist/exports.mjs",
   "types": "./dist/types.d.ts",
   "main": "./dist/exports.cjs",
+  "type": "module",
   "scripts": {
     "build": "tsc --build"
   },
