@@ -52,7 +52,9 @@ JavaScript:
 ```javascript
 const { Client, Collection } = require("discord.js");
 const CMDManager = require("discord-handlers");
-const client = new Client();
+const client = new Client({
+  intents: ["Guilds", "GuildMessages"],
+});
 
 client.login("token");
 
@@ -79,7 +81,9 @@ const CMD = new CMDManager(client, {
 ```javascript
 import { Client, Collection } from "discord.js";
 import CMDManager from "discord-handlers";
-const client = new Client();
+const client = new Client({
+  intents: ["Guilds", "GuildMessages"],
+});
 
 client.login("token");
 
@@ -106,7 +110,9 @@ import CMDManager, {
   CommandJSONExport,
   CommandInterface,
 } from "discord-handlers";
-const client = new Client<boolean>();
+const client = new Client<boolean>({
+  intents: ["Guilds", "GuildMessages"],
+});
 
 client.login("token");
 
