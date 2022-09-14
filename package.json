@@ -4,7 +4,7 @@
   "description": "A JavaScript/TypeScript module assisting with creating REST & Non-REST Event Handlers, as well as assisting with creating Slash Commands for your Discord bot",
   "module": "./dist/exports.mjs",
   "types": "./dist/types.d.ts",
-  "main": "./dist/exports.cjs",
+  "main": "./dist/exports.js",
   "type": "module",
   "repository": {
     "type": "git",
