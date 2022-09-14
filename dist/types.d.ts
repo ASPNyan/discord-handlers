@@ -2,7 +2,7 @@
 import { Client, ClientEvents, LocaleString, RestEvents, ApplicationCommandOptionType, Interaction, CacheType, Guild, ChannelType, CommandInteraction, Collection } from "discord.js";
 import { EventEmitter } from "events";
 // prettier-ignore
-import { StringOptionType, NumericalOptionType, ChannelOptionType, SubcommandOptionType, SubcommandGroupOptionType } from  './exports'
+import { StringOptionType, NumericalOptionType, ChannelOptionType, SubcommandOptionType, SubcommandGroupOptionType } from  'discord-handlers/dist'
 
 export class EventInterface {
   /**
@@ -253,6 +253,7 @@ export class CommandJSONExport {
   name_localizations: object;
   description_localizations: object;
 }
+
 export class ConstructorOptions {
   CommandDirectory: string;
   EventsDirectory: string;
@@ -263,7 +264,7 @@ export class ConstructorOptions {
   EventCollection: Collection<string, (...args: any[]) => any>;
 }
 
-export declare class CMDManager extends EventEmitter {
+declare export default class CMDManager extends EventEmitter {
   private _Client: Client<boolean>;
   private _DeveloperServerID: string | null | undefined;
   private _TypeScript: boolean;
