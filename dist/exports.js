@@ -15,7 +15,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 exports.CommandJSONExport = exports.CommandInterface = exports.EventInterface = exports.SubcommandGroupOptionType = exports.SubcommandOptionType = exports.ChannelOptionType = exports.NumericalOptionType = exports.StringOptionType = void 0;
-var handlers_1 = __importDefault(require("./src/handlers.cjs"));
+var handlers_1 = __importDefault(require("./src/handlers.js"));
 var discord_js_1 = require("discord.js");
 exports.StringOptionType = discord_js_1.ApplicationCommandOptionType.String;
 exports.NumericalOptionType = {
@@ -26,9 +26,9 @@ exports.ChannelOptionType = discord_js_1.ApplicationCommandOptionType.Channel;
 exports.SubcommandOptionType = discord_js_1.ApplicationCommandOptionType.Subcommand;
 // prettier-ignore
 exports.SubcommandGroupOptionType = discord_js_1.ApplicationCommandOptionType.SubcommandGroup;
-var handlers_2 = require("./src/handlers.cjs");
+var handlers_2 = require("./src/handlers.js");
 __createBinding(exports, handlers_2, "EventInterface");
 __createBinding(exports, handlers_2, "CommandInterface");
-var JSONExport = require("./CommandJSONExport.cjs")
+var JSONExport = require("./CommandJSONExport.js")
 __createBinding(exports, JSONExport, "CommandJSONExport");
 exports["default"] = handlers_1["default"];
