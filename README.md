@@ -20,19 +20,21 @@ This Module is Licensed Under the [CC-BY-NC-SA 4.0](http://creativecommons.org/l
 NPM:
 
 ```bash
+npm i @aspnyan/discord-handlers
+```
+or
+```bash
 npm i https://github.com/ASPNyan/discord-handlers
 ```
 
 Yarn:
 
 ```bash
-yarn add https://github.com/ASPNyan/discord-handlers
+yarn add @aspnyan/discord-handlers
 ```
-
-PNPM:
-
+or
 ```bash
-pnpm add https://github.com/ASPNyan/discord-handlers
+yarn add https://github.com/ASPNyan/discord-handlers
 ```
 
 ---
