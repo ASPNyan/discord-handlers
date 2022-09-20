@@ -1,11 +1,17 @@
 {
   "name": "discord-handlers",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A JavaScript/TypeScript module assisting with creating REST & Non-REST Event Handlers, as well as assisting with creating Slash Commands for your Discord bot",
-  "module": "./dist/exports.mjs",
-  "types": "./dist/types.d.ts",
-  "main": "./dist/exports.js",
-  "type": "module",
+  "module": "./build/ESM/exports.mjs",
+  "types": "./build/types.d.ts",
+  "main": "./build/CJS/exports.cjs",
+  "exports": {
+    ".": {
+      "require": "./build/exports.cjs",
+      "import": "./build/exports.mjs",
+      "types": "./build/types.d.ts"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ASPNyan/discord-handlers.git"
@@ -19,17 +25,23 @@
   "devDependencies": {
     "@types/glob": "^8.0.0",
     "discord.js": "^14.3.0",
-    "glob": "^8.0.3",
-    "typescript": "^4.8.3"
+    "glob": "^8.0.3"
   },
   "dependencies": {
-    "ascii-table3": "^0.7.7"
-  },
-  "optionalDependencies": {
-    "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0"
+    "ascii-table3": "^0.7.7",
+    "copyfiles": "^2.4.1",
+    "typescript": "^4.8.3"
   },
   "files": [
-    "dist"
-  ]
+    "build",
+    "LICENSE.md",
+    "README.md",
+    "package.json"
+  ],
+  "scripts": {
+    "build-types": "powershell Copy-Item -Path \".\\dev\\types.d.ts\" -Destination \".\\build\"",
+    "build": "npx tsc -p ./tsconfig.json && npx tsc -p ./tsconfig-cjs.json && npm run build-types",
+    "prepublishOnly": "npm run build",
+    "prepack": "npm run build"
+  }
 }
