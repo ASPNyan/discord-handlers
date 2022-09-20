@@ -30,7 +30,8 @@
   "dependencies": {
     "ascii-table3": "^0.7.7",
     "copyfiles": "^2.4.1",
-    "typescript": "^4.8.3"
+    "typescript": "^4.8.3",
+    "renamer": "^4.0.0"
   },
   "files": [
     "build",
@@ -40,8 +41,9 @@
   ],
   "scripts": {
     "build-types": "powershell Copy-Item -Path \".\\dev\\types.d.ts\" -Destination \".\\build\"",
-    "build": "npx tsc -p ./tsconfig.json && npx tsc -p ./tsconfig-cjs.json && npm run build-types",
-    "prepublishOnly": "npm run build",
-    "prepack": "npm run build"
+    "build-files": "npx tsc -p ./tsconfig.json && npx tsc -p ./tsconfig-cjs.json",
+    "rename-esm": "npx renamer -regex --find '\\.js^' --replace '.mjs' './build/ESM/**/*.js",
+    "rename-cjs": "npx renamer -regex --find '\\.js^' --replace '.cjs' './build/CJS/**/*.js",
+    "build": "npm run build-files && npm run build-types && npm run rename-esm && npm run rename-cjs"
   }
 }
