@@ -1,8 +1,8 @@
 // prettier-ignore
-import { Client, ClientEvents, LocaleString, RestEvents, ApplicationCommandOptionType, Interaction, CacheType, Guild, ChannelType, CommandInteraction, Collection } from "discord.js";
+import { Client, ClientEvents, LocaleString, RestEvents, ApplicationCommandOptionType, Guild, ChannelType, Collection, ChatInputCommandInteraction } from "discord.js";
 import { EventEmitter } from "events";
 // prettier-ignore
-import { StringOptionType, NumericalOptionType, ChannelOptionType, SubcommandOptionType, SubcommandGroupOptionType } from  'discord-handlers/dist'
+import { StringOptionType, NumericalOptionType, ChannelOptionType, SubcommandOptionType, SubcommandGroupOptionType } from  './exports.mjs'
 
 export class EventInterface {
   /**
@@ -78,7 +78,7 @@ export type CommandChoiceStructure = {
 };
 
 export interface ChannelCommandOptionStructure
-  extends Exclude<BaseCommandOptionStructure, "type"> {
+  extends Omit<BaseCommandOptionStructure, "type"> {
   /**
    * The Type(s) of Discord Channel(s) to be Allowed by the Command in Discord
    */
@@ -91,7 +91,7 @@ export interface ChannelCommandOptionStructure
 }
 
 export interface NumericalCommandOptionStructure
-  extends Exclude<BaseCommandOptionStructure, "type"> {
+  extends Omit<BaseCommandOptionStructure, "type"> {
   /**
    * The Minimum Value supported by the Command
    * Does not Allow the User to Execute the Command unless At or Above the Minimum
@@ -120,7 +120,7 @@ export interface NumericalCommandOptionStructure
 }
 
 export interface StringCommandOptionStructure
-  extends Exclude<BaseCommandOptionStructure, "type"> {
+  extends Omit<BaseCommandOptionStructure, "type"> {
   /**
    * The Minimum Length supported by the Command
    * Does not Allow the User to Execute the Command unless At or Above the Minumum
@@ -153,36 +153,36 @@ export interface CommandOptions {
    * A Variation of the Standard Option Structure
    * This Variation includes Specialised Parameters for Channel Options
    */
-  channel: ChannelCommandOptionStructure[];
+  channel?: ChannelCommandOptionStructure[];
   /**
    * A Variation of the Standard Option Structure
    * This Variation includes Specialised Parameters for Numerical Options
    */
-  numerical: NumericalCommandOptionStructure[];
+  numerical?: NumericalCommandOptionStructure[];
   /**
    * A Variation of the Standard Option Structure
    * This Variation includes Specialised Parameters for String Options
    */
-  string: StringCommandOptionStructure[];
+  string?: StringCommandOptionStructure[];
   /**
    * A Variation of the Standard Option Structure
    * This Variation includes Specialised Parameters for Subcommand Options
    */
-  subcommand: SubcommandOptionStructure[];
+  subcommand?: SubcommandOptionStructure[];
   /**
    * A Variation of the Standard Option Structure
    * This Variation includes Specialised Parameters for SubcommandGroup Options
    */
-  subcommandGroup: SubcommandGroupOptionStructure[];
+  subcommandGroup?: SubcommandGroupOptionStructure[];
   /**
    * The Standard Option Structure
    * Contains Standard Parameters Applicable for All (Except Subcommand/Subcommand Group) Command Options
    */
-  standard: BaseCommandOptionStructure[];
+  standard?: BaseCommandOptionStructure[];
 }
 
 export interface SubcommandOptionStructure
-  extends Exclude<BaseCommandOptionStructure, "required" | "type"> {
+  extends Omit<BaseCommandOptionStructure, "required" | "type"> {
   /**
    * A Modified Version of the Base Type Parameter
    * Allows Only a Subcommand (ApplicationCommandOptionType.Subcommand) Type
@@ -195,7 +195,7 @@ export interface SubcommandOptionStructure
 }
 
 export interface SubcommandGroupOptionStructure
-  extends Exclude<BaseCommandOptionStructure, "required" | "type"> {
+  extends Omit<BaseCommandOptionStructure, "required" | "type"> {
   /**
    * A Modified Version of the Base Type Parameter
    * Allows Only a SubcommandGroup (ApplicationCommandOptionType.SubcommandGroup) Type
@@ -205,6 +205,12 @@ export interface SubcommandGroupOptionStructure
    * The Subcommand(s) to be Added to the SubcommandGroup
    */
   subcommand: SubcommandOptionStructure[];
+}
+
+export interface CommandExecTypes {
+  client: Client;
+  interaction: ChatInputCommandInteraction;
+  guild: Guild | null;
 }
 
 declare class CommandInterface {
@@ -241,7 +247,7 @@ declare class CommandInterface {
   /**
    *
    */
-  execute?: ( client: Client, interaction: CommandInteraction<CacheType>, guild: Guild | null ) => {};
+  execute?: ({interaction, client, guild}: CommandExecTypes) => {};
 }
 
 export class CommandJSONExport {
@@ -258,30 +264,25 @@ export class ConstructorOptions {
   CommandDirectory: string;
   EventsDirectory: string;
   DeveloperServerID?: string | null | undefined;
-  TypeScript: boolean;
-  ExecCollection: Collection<string, CommandInterface>;
-  CommandCollection: Collection<string, CommandJSONExport>;
-  EventCollection: Collection<string, (...args: any[]) => any>;
+  FileExtension: "CommonJS" | "ECMAScript" | "TypeScript";
 }
 
-declare export default class CMDManager extends EventEmitter {
+declare class CMDManager extends EventEmitter {
   private _Client: Client<boolean>;
   private _DeveloperServerID: string | null | undefined;
-  private _TypeScript: boolean;
+  private _FileExtension: "CommonJS" | "ECMAScript" | "TypeScript";
   private _CommandDirectory: string;
   private _EventDirectory: string;
-  private _ExecCollection: Collection<string, CommandInterface>;
-  private _CommandCollection: Collection<string, CommandJSONExport>;
-  private _EventCollection: Collection<string, (...args: any[]) => any>;
+  readonly ExecCollection: Collection<string, CommandInterface>;
+  readonly CommandCollection: Collection<string, CommandJSONExport>;
+  readonly EventCollection: Collection<string, (...args: any[]) => any>;
 
   constructor(Client: Client, options: ConstructorOptions);
 
   public get Client(): Client<boolean>;
   public get DeveloperServerID(): string | null;
-  public get TypeScript(): boolean;
+  public get FileExtension(): "CommonJS" | "ECMAScript" | "TypeScript";
   public get CommandDirectory(): string;
   public get EventDirectory(): string;
-  public get ExecCollection(): Collection<string, CommandInterface>;
-  public get CommandCollection(): Collection<string, CommandJSONExport>;
-  public get EventCollection(): Collection<string, (...args: any[]) => any>;
 }
+export default CMDManager;

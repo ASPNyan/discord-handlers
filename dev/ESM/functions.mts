@@ -1,8 +1,8 @@
 import { PermissionFlagsBits } from "discord.js";
 import glob from "glob";
 import { promisify } from "util";
-import { CommandInterface } from "./handlers";
-import { CommandJSONExport } from "../types";
+import { CommandInterface } from "./handlers.mjs";
+import { CommandJSONExport } from "../types.mjs";
 
 export function CommandOptionSorter(command: CommandInterface) {
   let baseOptions = command.options;
@@ -142,10 +142,12 @@ export function ReturnCommandJSON(
 const proGlob = promisify(glob);
 export async function FileLoader(
   dirName: string,
-  isTypeScript: boolean
+  FileExtension: "CommonJS" | "ECMAScript" | "TypeScript"
 ): Promise<string[]> {
   let FiEx = ".js";
-  if (isTypeScript) FiEx = ".ts";
+  if (FileExtension === "CommonJS") FiEx = ".cjs";
+  if (FileExtension === "TypeScript") FiEx = ".ts";
+  if (FileExtension === "ECMAScript") FiEx = ".mjs";
   const Files = await proGlob(
     `${process.cwd().replace(/\\/g, "/")}/${dirName}/**/*${FiEx}`
   );

@@ -1,38 +1,27 @@
-import {
-  CacheType,
-  Client,
-  ClientEvents,
-  Collection,
-  CommandInteraction,
-  Guild,
-  RestEvents,
-} from "discord.js";
+import { Client, ClientEvents, Collection, RestEvents } from "discord.js";
 // prettier-ignore
-import { CommandJSONExport, CommandOptions, ConstructorOptions, localizer } from "../types";
-import { ReturnCommandJSON, FileLoader } from "./functions";
+import { CommandJSONExport, CommandOptions, ConstructorOptions, localizer, CommandExecTypes } from "../types.cjs";
+import { ReturnCommandJSON, FileLoader } from "./functions.cjs";
 import { EventEmitter } from "events";
 const { AsciiTable3 } = require("ascii-table3");
 
 export default class CMDManager extends EventEmitter {
   private _Client: Client<boolean>;
   private _DeveloperServerID: string | null | undefined;
-  private _TypeScript: boolean;
+  private _FileExtension: "CommonJS" | "ECMAScript" | "TypeScript";
   private _CommandDirectory: string;
   private _EventsLocation: string;
-  private _ExecCollection: Collection<string, CommandInterface>;
-  private _CommandCollection: Collection<string, CommandJSONExport>;
-  private _EventCollection: Collection<string, (...args: any[]) => any>;
+  readonly ExecCollection = new Collection<string, CommandInterface>();
+  readonly CommandCollection = new Collection<string, CommandJSONExport>();
+  readonly EventCollection = new Collection<string, (arg: any) => any>();
 
   constructor(Client: Client, options: ConstructorOptions) {
     super();
     this._Client = Client;
     this._DeveloperServerID = options.DeveloperServerID;
-    this._TypeScript = options.TypeScript;
+    this._FileExtension = options.FileExtension;
     this._CommandDirectory = options.CommandDirectory;
     this._EventsLocation = options.EventsDirectory;
-    this._ExecCollection = options.ExecCollection;
-    this._CommandCollection = options.CommandCollection;
-    this._EventCollection = options.EventCollection;
     this.runHandlers();
   }
 
@@ -44,7 +33,7 @@ export default class CMDManager extends EventEmitter {
       .setHeading("Event", "Status")
       .setStyle("unicode-mix")
       .setAlignCenter(3);
-    const Files = await FileLoader(this._EventsLocation, this._TypeScript);
+    const Files = await FileLoader(this._EventsLocation, this._FileExtension);
     collection.clear();
 
     Files.forEach((file) => {
@@ -92,11 +81,13 @@ export default class CMDManager extends EventEmitter {
     execCollection.clear();
     let commandsArray: any[] = [];
     let developerArray: any[] = [];
-    const Files = await FileLoader(this._CommandDirectory, this._TypeScript);
+    const Files = await FileLoader(this._CommandDirectory, this._FileExtension);
 
     Files.forEach((file) => {
       let FiEx = ".js";
-      if (this._TypeScript === true) FiEx = ".ts";
+      if (this._FileExtension === "CommonJS") FiEx = ".cjs";
+      if (this._FileExtension === "TypeScript") FiEx = ".ts";
+      if (this._FileExtension === "ECMAScript") FiEx = ".mjs";
       let command = require(file.replace(FiEx, ""));
       if (command.default) command = command.default;
 
@@ -134,11 +125,11 @@ export default class CMDManager extends EventEmitter {
   }
 
   private runHandlers = () => {
-    this.EventHandler(this._Client, this._EventCollection);
+    this.EventHandler(this._Client, this.EventCollection);
     this.CommandHandler(
       this._Client,
-      this._CommandCollection,
-      this._ExecCollection
+      this.CommandCollection,
+      this.ExecCollection
     );
   };
 }
@@ -152,11 +143,7 @@ export class CommandInterface {
   name_localizations?: localizer[];
   description_localizations?: localizer[];
   options?: CommandOptions;
-  execute?: (
-    client: Client,
-    interaction: CommandInteraction<CacheType>,
-    guild: Guild | null
-  ) => {};
+  execute?: ({ client, interaction, guild }: CommandExecTypes) => {};
 }
 
 export class EventInterface {
