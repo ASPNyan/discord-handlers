@@ -2,7 +2,7 @@ import { PermissionFlagsBits } from "discord.js";
 import glob from "glob";
 import { promisify } from "util";
 import { CommandInterface } from "./handlers.cjs";
-import { CommandJSONExport } from "../types.cjs";
+import { CommandJSONExport } from "../types";
 
 export function CommandOptionSorter(command: CommandInterface) {
   let baseOptions = command.options;

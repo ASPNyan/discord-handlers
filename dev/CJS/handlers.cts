@@ -1,6 +1,6 @@
 import { Client, ClientEvents, Collection, RestEvents } from "discord.js";
 // prettier-ignore
-import { CommandJSONExport, CommandOptions, ConstructorOptions, localizer, CommandExecTypes } from "../types.cjs";
+import { CommandJSONExport, CommandOptions, ConstructorOptions, localizer, CommandExecTypes } from "../types";
 import { ReturnCommandJSON, FileLoader } from "./functions.cjs";
 import { EventEmitter } from "events";
 const { AsciiTable3 } = require("ascii-table3");

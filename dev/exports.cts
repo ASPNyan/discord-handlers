@@ -15,5 +15,5 @@ export const SubcommandOptionType = ApplicationCommandOptionType.Subcommand;
 export const SubcommandGroupOptionType = ApplicationCommandOptionType.SubcommandGroup;
 
 export { EventInterface, CommandInterface } from "./CJS/handlers.cjs";
-export { CommandJSONExport } from "./types.cjs";
+export { CommandJSONExport } from "./types";
 export default CMDManager;

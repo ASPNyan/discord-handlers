@@ -1,8 +1,8 @@
-import { PermissionFlagsBits } from "discord.js";
+import { PermissionFlagsBits } from "discord-api-types/v10";
 import glob from "glob";
 import { promisify } from "util";
 import { CommandInterface } from "./handlers.mjs";
-import { CommandJSONExport } from "../types.mjs";
+import { CommandJSONExport } from "../types";
 
 export function CommandOptionSorter(command: CommandInterface) {
   let baseOptions = command.options;
@@ -11,32 +11,32 @@ export function CommandOptionSorter(command: CommandInterface) {
   if (!baseOptions) return;
 
   if (baseOptions.channel) {
-    baseOptions.channel.forEach((option) => {
+    baseOptions.channel.forEach((option: any) => {
       options.push(option);
     });
   }
   if (baseOptions.numerical) {
-    baseOptions.numerical.forEach((option) => {
+    baseOptions.numerical.forEach((option: any) => {
       options.push(option);
     });
   }
   if (baseOptions.standard) {
-    baseOptions.standard.forEach((option) => {
+    baseOptions.standard.forEach((option: any) => {
       options.push(option);
     });
   }
   if (baseOptions.string) {
-    baseOptions.string.forEach((option) => {
+    baseOptions.string.forEach((option: any) => {
       options.push(option);
     });
   }
   if (baseOptions.subcommand) {
-    baseOptions.subcommand.forEach((option) => {
+    baseOptions.subcommand.forEach((option: any) => {
       options.push(option);
     });
   }
   if (baseOptions.subcommandGroup) {
-    baseOptions.subcommandGroup.forEach((option) => {
+    baseOptions.subcommandGroup.forEach((option: any) => {
       options.push(option);
     });
   }

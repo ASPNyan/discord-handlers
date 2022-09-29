@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "outDir": "./build/CJS"
+    "target": "ES6"
   },
-  "exclude": ["./build", "./**.ts", "./**.js"]
+  "include": ["./dev/*.cts", "./dev/CJS/*.cts"]
 }
