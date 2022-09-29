@@ -22,7 +22,9 @@ NPM:
 ```bash
 npm i @aspnyan/discord-handlers
 ```
+
 or
+
 ```bash
 npm i https://github.com/ASPNyan/discord-handlers
 ```
@@ -32,7 +34,9 @@ Yarn:
 ```bash
 yarn add @aspnyan/discord-handlers
 ```
+
 or
+
 ```bash
 yarn add https://github.com/ASPNyan/discord-handlers
 ```
@@ -53,28 +57,18 @@ JavaScript:
 
 ```javascript
 const { Client, Collection } = require("discord.js");
-const CMDManager = require("discord-handlers");
+const CMDManager = require("@aspnyan/discord-handlers");
 const client = new Client({
   intents: ["Guilds", "GuildMessages"],
 });
 
 client.login("token");
 
-const events = new Collection();
-exports.events = events;
-const commands = new Collection();
-exports.commands = commands;
-const executions = new Collection();
-exports.executions = executions;
-
-const CMD = new CMDManager(client, {
+export const CMD = new CMDManager(client, {
   CommandDirectory: "./Commands", // This Doesn't Have to be "./Commands", Just Make Sure It Starts With "./"
   EventsDirectory: "./Events", // This Doesn't Have to be "./Events", Just Make Sure It Starts With "./"
   DeveloperServerID: "dev_server_id",
-  TypeScript: false,
-  CommandCollection: commands,
-  ExecCollection: executions,
-  EventCollection: events,
+  FileExtension: "CommonJS",
 });
 ```
 
@@ -82,25 +76,18 @@ const CMD = new CMDManager(client, {
 
 ```javascript
 import { Client, Collection } from "discord.js";
-import CMDManager from "discord-handlers";
+import CMDManager from "@aspnyan/discord-handlers";
 const client = new Client({
   intents: ["Guilds", "GuildMessages"],
 });
 
 client.login("token");
 
-export const events = new Collection();
-export const commands = new Collection();
-export const executions = new Collection();
-
-const CMD = new CMDManager(client, {
+export const CMD = new CMDManager(client, {
   CommandDirectory: "./Commands", // This Doesn't Have to be "./Commands", Just Make Sure It Starts With "./"
   EventsDirectory: "./Events", // This Doesn't Have to be "./Events", Just Make Sure It Starts With "./"
   DeveloperServerID: "dev_server_id",
-  TypeScript: false,
-  CommandCollection: commands,
-  ExecCollection: executions,
-  EventCollection: events,
+  FileExtension: "ECMAScript",
 });
 ```
 
@@ -108,28 +95,18 @@ TypeScript:
 
 ```typescript
 import { Client, Collection } from "discord.js";
-import CMDManager, {
-  CommandJSONExport,
-  CommandInterface,
-} from "discord-handlers";
+import CMDManager from "@aspnyan/discord-handlers";
 const client = new Client<boolean>({
   intents: ["Guilds", "GuildMessages"],
 });
 
 client.login("token");
 
-export const events = new Collection<string, (arg: any) => any>();
-export const commands = new Collection<string, CommandJSONExport>();
-export const executions = new Collection<string, CommandInterface>();
-
-const CMD = new CMDManager(client, {
+export const CMD = new CMDManager(client, {
   CommandDirectory: "./Commands", // This Doesn't Have to be "./Commands", Just Make Sure It Starts With "./"
   EventsDirectory: "./Events", // This Doesn't Have to be "./Events", Just Make Sure It Starts With "./"
   DeveloperServerID: "dev_server_id",
-  TypeScript: false,
-  CommandCollection: commands,
-  ExecCollection: executions,
-  EventCollection: events,
+  FileExtension: "TypeScript",
 });
 ```
 
@@ -156,13 +133,15 @@ JavaScript:
 - CommonJS:
 
 ```javascript
-const { commands, executions } = require("../index");
+const { CMD } = require("../index");
 
 module.exports = {
   name: "interactionCreate",
   once: false,
   rest: false,
   execute: (interaction) => {
+    const commands = CMD.CommandCollection;
+    const executions = CMD.ExecCollection;
     if (interaction.isChatInputCommand()) {
       const command = commands.get(interaction.commandName);
       if (!command) return;
@@ -177,14 +156,16 @@ module.exports = {
 - ES6:
 
 ```javascript
-import { EventInterface } from "discord-handlers";
-import { commands, executions } from "../index";
+import { EventInterface } from "@aspnyan/discord-handlers";
+import { CMD } from "../index";
 
 export default {
   name: "interactionCreate",
   once: false,
   rest: false,
   execute: (interaction) => {
+    const commands = CMD.CommandCollections;
+    const executions = CMD.ExecCollections;
     if (interaction.isChatInputCommand()) {
       const command = commands.get(interaction.commandName);
       if (!command) return;
@@ -203,14 +184,16 @@ import {
   EventInterface,
   CommandJSONExport,
   CommandInterface,
-} from "discord-handlers";
-import { commands, executions } from "../index";
+} from "@aspnyan/discord-handlers";
+import { CMD } from "../index";
 
 export default {
   name: "interactionCreate",
   once: false,
   rest: false,
   execute: (interaction) => {
+    const commands = CMD.CommandCollections;
+    const executions = CMD.ExecCollections;
     if (interaction.isChatInputCommand()) {
       const command: CommandJSONExport | undefined = commands.get(
         interaction.commandName
@@ -284,7 +267,7 @@ export default {
 TypeScript:
 
 ```typescript
-import { CommandInterface } from "discord-handlers";
+import { CommandInterface } from "@aspnyan/discord-handlers";
 
 export default {
   name: "ping",
@@ -299,7 +282,7 @@ export default {
 } as CommandInterface;
 ```
 
-There's a lot more you can do with Slash Commands that isn't explained here, so make sure to look through all of that. If I have time I might write some documentation for everything.
+There's a lot more you can do with Slash Commands and Events that isn't explained here, so make sure to look through all of that. If I have time I might write some documentation for everything, but don't expect it yet.
 
 ---
 
