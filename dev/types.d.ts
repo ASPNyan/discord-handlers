@@ -213,7 +213,7 @@ export interface CommandExecTypes {
   guild: Guild | null;
 }
 
-declare class CommandInterface {
+export declare class CommandInterface {
   /**
    * The Name of the Command, Shown in Discord
    */
