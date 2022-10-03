@@ -43,6 +43,6 @@
     "build-types": "powershell Copy-Item -Path .\\dev\\types.d.*ts -Destination .\\build",
     "build-files": "npx tsc -p ./tsconfig.json",
     "build": "npm run clear && npm run build-files && npm run build-types",
-    "prepack": "powershell Move-Item -Path \"./aspnyan-discord-handlers-*.tgz\" -Force"
+    "prepack": "powershell Move-Item -Path \"./aspnyan-discord-handlers-*.tgz\" -Destination \"./Package-Archives\" -Force"
   }
 }
