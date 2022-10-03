@@ -91,6 +91,10 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
+  "include": [
+    "./dev/ESM/*.mts",
+    "./dev/*.mts"
+  ],
   "exclude": [
     "./build",
     "./**.ts",
