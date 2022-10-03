@@ -1,6 +1,6 @@
 {
   "name": "@aspnyan/discord-handlers",
-  "version": "1.2.1",
+  "version": "1.2.4",
   "description": "A JavaScript/TypeScript module assisting with creating REST & Non-REST Event Handlers, as well as assisting with creating Slash Commands for your Discord bot",
   "module": "./build/exports.mjs",
   "types": "./build/types.d.mts",
