@@ -22,6 +22,6 @@ exports.SubcommandGroupOptionType = discord_js_1.ApplicationCommandOptionType.Su
 var handlers_cjs_2 = require("./CJS/handlers.cjs");
 Object.defineProperty(exports, "EventInterface", { enumerable: true, get: function () { return handlers_cjs_2.EventInterface; } });
 Object.defineProperty(exports, "CommandInterface", { enumerable: true, get: function () { return handlers_cjs_2.CommandInterface; } });
-var types_1 = require("./types");
-Object.defineProperty(exports, "CommandJSONExport", { enumerable: true, get: function () { return types_1.CommandJSONExport; } });
+var types_cjs_1 = require("./types.cjs");
+Object.defineProperty(exports, "CommandJSONExport", { enumerable: true, get: function () { return types_cjs_1.CommandJSONExport; } });
 exports.default = handlers_cjs_1.default;

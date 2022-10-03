@@ -1,5 +1,5 @@
 import { Client, ClientEvents, Collection, RestEvents } from "discord.js";
-import { CommandJSONExport, CommandOptions, ConstructorOptions, localizer, CommandExecTypes } from "../types";
+import { CommandJSONExport, CommandOptions, ConstructorOptions, localizer, CommandExecTypes } from "../types.mjs";
 import { EventEmitter } from "events";
 export default class CMDManager extends EventEmitter {
     private _Client;

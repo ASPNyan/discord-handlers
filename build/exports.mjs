@@ -1,27 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CommandJSONExport = exports.CommandInterface = exports.EventInterface = exports.SubcommandGroupOptionType = exports.SubcommandOptionType = exports.ChannelOptionType = exports.NumericalOptionType = exports.StringOptionType = exports.log = void 0;
-const handlers_mjs_1 = __importDefault(require("./ESM/handlers.mjs"));
-const discord_js_1 = require("discord.js");
-const log = (...args) => {
+import CMDManager from "./ESM/handlers.mjs";
+import { ApplicationCommandOptionType } from "discord.js";
+export const log = (...args) => {
     console.log(...args);
 };
-exports.log = log;
-exports.StringOptionType = discord_js_1.ApplicationCommandOptionType.String;
-exports.NumericalOptionType = {
-    Number: discord_js_1.ApplicationCommandOptionType.Number,
-    Integer: discord_js_1.ApplicationCommandOptionType.Integer,
+export const StringOptionType = ApplicationCommandOptionType.String;
+export const NumericalOptionType = {
+    Number: ApplicationCommandOptionType.Number,
+    Integer: ApplicationCommandOptionType.Integer,
 };
-exports.ChannelOptionType = discord_js_1.ApplicationCommandOptionType.Channel;
-exports.SubcommandOptionType = discord_js_1.ApplicationCommandOptionType.Subcommand;
+export const ChannelOptionType = ApplicationCommandOptionType.Channel;
+export const SubcommandOptionType = ApplicationCommandOptionType.Subcommand;
 // prettier-ignore
-exports.SubcommandGroupOptionType = discord_js_1.ApplicationCommandOptionType.SubcommandGroup;
-var handlers_mjs_2 = require("./ESM/handlers.mjs");
-Object.defineProperty(exports, "EventInterface", { enumerable: true, get: function () { return handlers_mjs_2.EventInterface; } });
-Object.defineProperty(exports, "CommandInterface", { enumerable: true, get: function () { return handlers_mjs_2.CommandInterface; } });
-var types_1 = require("./types");
-Object.defineProperty(exports, "CommandJSONExport", { enumerable: true, get: function () { return types_1.CommandJSONExport; } });
-exports.default = handlers_mjs_1.default;
+export const SubcommandGroupOptionType = ApplicationCommandOptionType.SubcommandGroup;
+export { EventInterface, CommandInterface } from "./ESM/handlers.mjs";
+export { CommandJSONExport } from "./types.mjs";
+export default CMDManager;

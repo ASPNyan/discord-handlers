@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,15 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FileLoader = exports.ReturnCommandJSON = exports.CommandLocalizationSorter = exports.CommandOptionSorter = void 0;
-const v10_1 = require("discord-api-types/v10");
-const glob_1 = __importDefault(require("glob"));
-const util_1 = require("util");
-function CommandOptionSorter(command) {
+import { PermissionFlagsBits } from "discord.js";
+import glob from "glob";
+import { promisify } from "util";
+export function CommandOptionSorter(command) {
     let baseOptions = command.options;
     let options = [];
     if (!baseOptions)
@@ -53,8 +47,7 @@ function CommandOptionSorter(command) {
     }
     return options;
 }
-exports.CommandOptionSorter = CommandOptionSorter;
-function CommandLocalizationSorter(command) {
+export function CommandLocalizationSorter(command) {
     let BaseLocaleNames = command.name_localizations;
     let BaseLocaleDescs = command.description_localizations;
     var FirstSort = {
@@ -107,8 +100,7 @@ function CommandLocalizationSorter(command) {
     };
     return FinalSort;
 }
-exports.CommandLocalizationSorter = CommandLocalizationSorter;
-function ReturnCommandJSON(command) {
+export function ReturnCommandJSON(command) {
     var _a, _b;
     if (!command.name) {
         console.warn(`Error: Commands Must Have a Name Assigned in Their File!`);
@@ -126,7 +118,7 @@ function ReturnCommandJSON(command) {
     if (command.default_member_permissions)
         permissions = command.default_member_permissions;
     else
-        permissions = v10_1.PermissionFlagsBits.UseApplicationCommands;
+        permissions = PermissionFlagsBits.UseApplicationCommands;
     return {
         name: command.name,
         description: command.description,
@@ -137,9 +129,8 @@ function ReturnCommandJSON(command) {
         description_localizations: CommandLocalizationSorter(command).Descs,
     };
 }
-exports.ReturnCommandJSON = ReturnCommandJSON;
-const proGlob = (0, util_1.promisify)(glob_1.default);
-function FileLoader(dirName, FileExtension) {
+const proGlob = promisify(glob);
+export function FileLoader(dirName, FileExtension) {
     return __awaiter(this, void 0, void 0, function* () {
         let FiEx = ".js";
         if (FileExtension === "CommonJS")
@@ -153,4 +144,3 @@ function FileLoader(dirName, FileExtension) {
         return Files;
     });
 }
-exports.FileLoader = FileLoader;
