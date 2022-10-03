@@ -10,5 +10,5 @@ export declare const ChannelOptionType = ApplicationCommandOptionType.Channel;
 export declare const SubcommandOptionType = ApplicationCommandOptionType.Subcommand;
 export declare const SubcommandGroupOptionType = ApplicationCommandOptionType.SubcommandGroup;
 export { EventInterface, CommandInterface } from "./ESM/handlers.mjs";
-export { CommandJSONExport } from "./types";
+export { CommandJSONExport } from "./types.mjs";
 export default CMDManager;

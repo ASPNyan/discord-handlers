@@ -1,5 +1,5 @@
 import { CommandInterface } from "./handlers.cjs";
-import { CommandJSONExport } from "../types";
+import { CommandJSONExport } from "../types.cjs";
 export declare function CommandOptionSorter(command: CommandInterface): any[] | undefined;
 export declare function CommandLocalizationSorter(command: CommandInterface): {
     Names: {
