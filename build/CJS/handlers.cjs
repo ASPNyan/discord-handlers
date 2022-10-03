@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,16 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Collection } from "discord.js";
-import { ReturnCommandJSON, FileLoader } from "./functions.cjs";
-import { EventEmitter } from "events";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.EventInterface = exports.CommandInterface = void 0;
+const discord_js_1 = require("discord.js");
+const functions_cjs_1 = require("./functions.cjs");
+const events_1 = require("events");
 const { AsciiTable3 } = require("ascii-table3");
-export default class CMDManager extends EventEmitter {
+class CMDManager extends events_1.EventEmitter {
     constructor(Client, options) {
         super();
-        this.ExecCollection = new Collection();
-        this.CommandCollection = new Collection();
-        this.EventCollection = new Collection();
+        this.ExecCollection = new discord_js_1.Collection();
+        this.CommandCollection = new discord_js_1.Collection();
+        this.EventCollection = new discord_js_1.Collection();
         this.runHandlers = () => {
             this.EventHandler(this._Client, this.EventCollection);
             this.CommandHandler(this._Client, this.CommandCollection, this.ExecCollection);
@@ -34,7 +37,7 @@ export default class CMDManager extends EventEmitter {
                 .setHeading("Event", "Status")
                 .setStyle("unicode-mix")
                 .setAlignCenter(3);
-            const Files = yield FileLoader(this._EventsLocation, this._FileExtension);
+            const Files = yield (0, functions_cjs_1.FileLoader)(this._EventsLocation, this._FileExtension);
             collection.clear();
             Files.forEach((file) => {
                 let event = require(file.toString());
@@ -78,7 +81,7 @@ export default class CMDManager extends EventEmitter {
             execCollection.clear();
             let commandsArray = [];
             let developerArray = [];
-            const Files = yield FileLoader(this._CommandDirectory, this._FileExtension);
+            const Files = yield (0, functions_cjs_1.FileLoader)(this._CommandDirectory, this._FileExtension);
             Files.forEach((file) => {
                 let FiEx = ".js";
                 if (this._FileExtension === "CommonJS")
@@ -90,7 +93,7 @@ export default class CMDManager extends EventEmitter {
                 let command = require(file.replace(FiEx, ""));
                 if (command.default)
                     command = command.default;
-                var CommandJSON = ReturnCommandJSON(command);
+                var CommandJSON = (0, functions_cjs_1.ReturnCommandJSON)(command);
                 if (!CommandJSON)
                     return console.log(`Command ${file} Returned Void!`);
                 collection.set(CommandJSON.name, CommandJSON);
@@ -121,7 +124,10 @@ export default class CMDManager extends EventEmitter {
         });
     }
 }
-export class CommandInterface {
+exports.default = CMDManager;
+class CommandInterface {
 }
-export class EventInterface {
+exports.CommandInterface = CommandInterface;
+class EventInterface {
 }
+exports.EventInterface = EventInterface;
